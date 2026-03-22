@@ -1,7 +1,7 @@
 [project]
 name = "ai-news-aggregator"
 version = "0.1.0"
-description = "Add your description here"
+description = "An autonomous AI-powered news aggregator that scrapes, analyzes, and ranks tech news using Llama 3.3 to deliver personalized email digests."
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [

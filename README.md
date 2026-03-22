@@ -19,7 +19,7 @@ Bu layihə, süni intellekt dünyasındakı yenilikləri avtomatik izləyən, an
 | :--- | :--- |
 | **Python 3.14+** | Əsas proqramlaşdırma dili |
 | **Groq API** | Llama-3.3-70b modeli ilə sürətli LLM emalı |
-| **SQLite** | Verilənlərin saxlanılması (Repository pattern) |
+| **Supabase (PostgreSQL)** | Verilənlərin saxlanılması (Repository pattern) |
 | **Pydantic** | Məlumatların validasiyası və strukturlaşdırılması |
 | **uv** | Müasir Python paket və asılılıq idarəetməsi |
 | **SMTP / SSL** | Təhlükəsiz e-mail göndərişi |
@@ -28,17 +28,18 @@ Bu layihə, süni intellekt dünyasındakı yenilikləri avtomatik izləyən, an
 
 ## Qovluq Strukturu
 
+```
 ai-news-aggregator/
 ├── app/
 │   ├── agent/          # LLM Agentləri (Curator, Digest, Email)
-│   ├── database/       # DB modelləri, Connection və Repository
-│   ├── scrapers/       # YouTube, OpenAI və Anthropic məlumat çəkən vasitələr
-│   ├── services/       # Biznes məntiqi, emal və e-mail xidməti
-│   └── config.py       # Sistem sazlamaları və kanallar
+│   ├── database/       # Supabase bağlantısı və Repository pattern
+│   ├── scrapers/       # YouTube, OpenAI və Anthropic skreyperləri
+│   ├── services/       # Biznes məntiqi və e-mail xidməti
+│   └── config.py       # Sistem sazlamaları
 ├── main.py             # Proqramın əsas giriş nöqtəsi
-├── daily_runner.py     # Bütün konveyeri (pipeline) idarə edən skript
-└── pyproject.toml      # Layihə asılılıqları (Dependencies)
-
+├── daily_runner.py     # Bütün pipeline-ı idarə edən skript
+└── pyproject.toml      # Layihə asılılıqları
+```
 ---
 
 ## Necə İşləyir?
@@ -56,16 +57,17 @@ Sistem 5 əsas mərhələdən ibarət konveyer (**pipeline**) üzərində qurulu
 ## Quraşdırma və İstifadə
 
 1. **Repozitoriyanı kopyalayın:**
-   git clone [https://github.com/istifadeci_adiniz/ai-news-aggregator.git](https://github.com/istifadeci_adiniz/ai-news-aggregator.git)
-   cd ai-news-aggregator
+   git clone https://github.com/azizmirz/ai-news-aggregator.git
 
 2. **Asılılıqları yükləyin:**
    uv sync
 
 3. **Environment (.env) faylını hazırlayın:**
+   ```
    GROQ_API_KEY=groq_acariniz
    MY_EMAIL=gmail_adresiniz
    APP_PASSWORD=google_app_password
+   DATABASE_URL=supabase_repository_url
 
 4. **Sistemi başladın:**
    Bütün konveyeri (pipeline) işə salmaq üçün **main.py** faylını icra edin

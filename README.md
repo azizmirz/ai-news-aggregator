@@ -1,76 +1,76 @@
 ## AI-Powered News Aggregator & Digest Agent
 
-Bu layihə, süni intellekt dünyasındakı yenilikləri avtomatik izləyən, analiz edən və istifadəçinin maraqlarına uyğun olaraq fərdiləşdirilmiş xəbərlərin məcmusunu hazırlayan və e-mail vasitəsilə istifadəçiyə göndərilən çox-agentli (multi-agent) bir sistemdir.
+This project is a multi-agent system that automatically tracks developments in the world of artificial intelligence, analyzes them, prepares a digest of news personalized to the user's interests, and sends it to the user by e-mail.
 
 ---
 
-## Əsas Özəlliklər
+## Key Features
 
-* **Avtomatik Məlumat Toplama:** OpenAI, Anthropic və seçilmiş YouTube kanallarından ən son xəbərləri və videoları avtomatik skan edir.
-* **Məlumatların analiz eidlməsi:** Toplanan məlumatlar **Groq (Llama 3.3)** vasitəsilə analiz edilir, xülasələr hazırlanır və mövzularına görə kateqoriyalara ayrılır.
-* **Fərdiləşdirilmiş Sıralama (Curator Agent):** Xəbərlər istifadəçinin profilinə və maraq dairəsinə görə "Curator Agent" tərəfindən sıralanır.
-* **E-mail vasitəsilə xəbərlərin məcmusu:** İstifadəçinin maraqlarına uyğun olan əsas xəbərlər və videolar HTML formatında tərtib olunur və Gmail vasitəsilə göndərilir.
+* **Automatic Data Collection:** Automatically scans the latest news and videos from OpenAI, Anthropic and selected YouTube channels.
+* **Data Analysis:** The collected data is analyzed with **Groq (Llama 3.3)**, summaries are prepared and items are grouped into categories by topic.
+* **Personalized Ranking (Curator Agent):** News items are ranked by the "Curator Agent" according to the user's profile and area of interest.
+* **News Digest via E-mail:** The main news and videos matching the user's interests are composed in HTML format and sent via Gmail.
 
 ---
 
-## İstifadə edilən texnologiyalar:
+## Technologies Used:
 
-| Texnologiya | İstifadə Sahəsi |
+| Technology | Purpose |
 | :--- | :--- |
-| **Python 3.14+** | Əsas proqramlaşdırma dili |
-| **Groq API** | Llama-3.3-70b modeli ilə sürətli LLM emalı |
-| **Supabase (PostgreSQL)** | Verilənlərin saxlanılması (Repository pattern) |
-| **Pydantic** | Məlumatların validasiyası və strukturlaşdırılması |
-| **uv** | Müasir Python paket və asılılıq idarəetməsi |
-| **SMTP / SSL** | Təhlükəsiz e-mail göndərişi |
+| **Python 3.14+** | Main programming language |
+| **Groq API** | Fast LLM processing with the Llama-3.3-70b model |
+| **Supabase (PostgreSQL)** | Data storage (Repository pattern) |
+| **Pydantic** | Data validation and structuring |
+| **uv** | Modern Python package and dependency management |
+| **SMTP / SSL** | Secure e-mail delivery |
 
 ---
 
-## Qovluq Strukturu
+## Folder Structure
 
 ```
 ai-news-aggregator/
 ├── app/
-│   ├── agent/          # LLM Agentləri (Curator, Digest, Email)
-│   ├── database/       # Supabase bağlantısı və Repository pattern
-│   ├── scrapers/       # YouTube, OpenAI və Anthropic skreyperləri
-│   ├── services/       # Biznes məntiqi və e-mail xidməti
-│   └── config.py       # Sistem sazlamaları
-├── main.py             # Proqramın əsas giriş nöqtəsi
-├── daily_runner.py     # Bütün pipeline-ı idarə edən skript
-└── pyproject.toml      # Layihə asılılıqları
+│   ├── agent/          # LLM Agents (Curator, Digest, Email)
+│   ├── database/       # Supabase connection and Repository pattern
+│   ├── scrapers/       # YouTube, OpenAI and Anthropic scrapers
+│   ├── services/       # Business logic and e-mail service
+│   └── config.py       # System settings
+├── main.py             # Main entry point of the application
+├── daily_runner.py     # Script that manages the entire pipeline
+└── pyproject.toml      # Project dependencies
 ```
 ---
 
-## Necə İşləyir?
+## How Does It Work?
 
-Sistem 5 əsas mərhələdən ibarət konveyer (**pipeline**) üzərində qurulub:
+The system is built on a pipeline consisting of 5 main stages:
 
-*  **Scraping:** Mənbələrdən (RSS, YouTube API, Markdown) məlumatlar yığılır.
-*  **Processing:** Videoların mətnləri (transcripts) və məqalələr təmizlənərək bazaya yazılır.
-*  **Digesting:** AI hər bir məlumatı oxuyub xülasə hazırlayır.
-*  **Ranking:** İstifadəçinin maraq dairəsinə uyğun olaraq ən vacib 10 xəbər seçilir.
-*  **Emailing:** Seçilmiş xəbərlər HTML şablonuna salınaraq istifadəçiyə göndərilir.
+*  **Scraping:** Data is collected from the sources (RSS, YouTube API, Markdown).
+*  **Processing:** Video transcripts and articles are cleaned and written to the database.
+*  **Digesting:** The AI reads each item and prepares a summary.
+*  **Ranking:** The 10 most important news items are selected according to the user's area of interest.
+*  **Emailing:** The selected news items are placed into an HTML template and sent to the user.
 
 ---
 
-## Quraşdırma və İstifadə
+## Setup and Usage
 
-1. **Repozitoriyanı kopyalayın:**
+1. **Clone the repository:**
    git clone https://github.com/azizmirz/ai-news-aggregator.git
 
-2. **Asılılıqları yükləyin:**
+2. **Install the dependencies:**
    uv sync
 
-3. **Environment (.env) faylını hazırlayın:**
+3. **Prepare the environment (.env) file:**
    ```
-   GROQ_API_KEY=groq_acariniz
-   MY_EMAIL=gmail_adresiniz
+   GROQ_API_KEY=your_groq_key
+   MY_EMAIL=your_gmail_address
    APP_PASSWORD=google_app_password
    DATABASE_URL=supabase_repository_url
 
-4. **Sistemi başladın:**
-   Bütün konveyeri (pipeline) işə salmaq üçün **main.py** faylını icra edin
+4. **Start the system:**
+   Run the **main.py** file to launch the entire pipeline
 
 
-* **Qeyd:** Opsional olaraq saat və xəbər sayını tənzimləyə bilərsiniz: **python main.py 48 20**
+* **Note:** Optionally, you can adjust the number of hours and the number of news items: **python main.py 48 20**
